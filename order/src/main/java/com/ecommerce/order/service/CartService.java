@@ -60,6 +60,11 @@ public class CartService {
 
     }
 
+     public boolean addToCartFallBack(String userId, CartItemRequest request,Exception exception){
+        exception.printStackTrace();
+        return false;
+    }
+
     public boolean deleteItemFromCart(String userId, String productId) {
         CartItem cartItem = cartItemRepository.findByUserIdAndProductId( userId, productId);
         if(cartItem !=null){
@@ -81,5 +86,6 @@ public class CartService {
         cartItemRepository.deleteByUserId(userId);
     }
 }
+
 
 
