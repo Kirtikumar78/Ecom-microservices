@@ -10,6 +10,7 @@ import com.ecommerce.order.repositories.CartItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,7 +24,7 @@ public class CartService {
 
     private final ProductServiceClient productServiceClient;
     private final UserServiceClient userServiceClient;
-
+    @CircuitBreaker(name = "productService")
     public boolean addToCart(String userId, CartItemRequest request) {
         ProductResponse productResponse = productServiceClient.getProductDetails(request.getProductId());
         if (productResponse==null || productResponse.getStockQuantity() < request.getQuantity())
@@ -80,4 +81,5 @@ public class CartService {
         cartItemRepository.deleteByUserId(userId);
     }
 }
+
 
