@@ -55,9 +55,9 @@ management:
       probability: 1.0
 
 resilience4j:
-  ecomBreaker:
+  circuitbreaker:
     instances:
-      productService:
+      ecomBreaker:
         registerHealthIndicator: true
         slidingWindowSize: 10
         minimumNumberOfCalls: 5
